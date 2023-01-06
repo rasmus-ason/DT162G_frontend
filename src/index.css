@@ -1,13 +1,111 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+h1, h2, h3
+{
+    font-family: Prosto One', 'cursive;
+    
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+body {
+    font-family: Poppins', 'cursive;
+    
 }
+
+
+
+header nav ul li:hover {
+    background-color: rgb(37, 37, 37);
+    color: rgb(226, 132, 148);
+    transition: 1.5s all;
+    cursor: pointer;
+    border: solid 2px #fff;
+}
+
+.categoryBtns button {
+    background-color: white;
+    color:green;
+    padding: 5px 10px 5px 10px;
+    border-radius: 5px;
+    box-shadow: rgb(72, 72, 72) 2px 2px 2px;
+}
+
+.categoryBtns button:hover {
+    background-color: black;
+    color:white;
+    transition: 1.2s all;
+    box-shadow: none;
+}
+
+.submitBtn {
+    background-color: rgb(34, 34, 34);
+    margin-top: 1em;
+    padding: 5px 0 5px 0;
+    box-shadow: 2px 2px 4px rgb(48, 48, 48);
+    
+    
+}
+
+.submitBtn:hover {
+    cursor: pointer;
+    transition: 1s all;
+    background-color: black;
+}
+
+form h3 {
+    text-align: center;
+    font-size: clamp(1rem, 2.5vw, 1.4rem);
+    margin: 1em 0 1em 0;
+}
+
+form input {
+    margin-bottom: 10px;
+}
+
+form input[type="range"]{
+    width: 230px;
+    margin: auto;
+    margin-bottom: 5px;
+   
+}
+
+
+
+
+form select, form select option, form input {
+    color: black;
+}
+
+.popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(255, 255, 255, 0.705);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+
+}
+
+.popup-inner {
+    position: relative;
+    width: 100%;
+    max-width: 800px;
+    color: #fff;
+    background-color: #be185df5;
+    padding: 3%;
+    z-index: 2;
+}
+
+
+main {
+    margin-bottom: 10%;
+}
+
+
+
+
