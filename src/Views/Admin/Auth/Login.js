@@ -1,11 +1,14 @@
 import React from 'react'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { BsArrowLeft } from 'react-icons/bs'
+import ErrorMessage from '../../../Components/Messages/ErrorMessage'
 
 const Login = ({displayRegisterBox}) => {
 
   const [emailLogin, setEmailLogin] = useState('')
   const [passwordLogin, setPasswordLogin] = useState('')
+  const [displayErrorMsg, setDisplayErrorMsg] = useState(false)
 
   const clickedRegisterBox = () => {
     displayRegisterBox()
@@ -31,12 +34,15 @@ const Login = ({displayRegisterBox}) => {
         )
         .then((res) => res.json())
         .then((data) => {
-          console.log(data, "userRegistration")
+          console.log(data)
           if(data.status == "ok"){
             alert("login successful")
+            location.reload()
             window.localStorage.setItem("token", data.data)
             window.localStorage.setItem("loggedIn", true)
             
+          }else {
+            setDisplayErrorMsg(true)
           }
         })
 
@@ -48,9 +54,14 @@ const Login = ({displayRegisterBox}) => {
 
   return (
     
-    <div className=' bg-gray-100 w-1/4 p-4 mx-auto mt-6 shadow-xl '>
+    <div className=' bg-gray-100 w-5/6 sm:w-3/5 md:w-2/5 lg:w-1/4 p-4 mx-auto mt-16 shadow-xl '>
 
         <div className='relavtive'>
+
+        <div 
+        className='absolute top-4 left-4 bg-white p-2 rounded-full hover:cursor-pointer'>
+        <Link to={'/'}><BsArrowLeft size={24}/></Link>
+        </div>
 
         <h1 className='text-pink-700 text-center text-2xl mb-4'>Login</h1>
 
@@ -68,6 +79,12 @@ const Login = ({displayRegisterBox}) => {
             type="password"
             onChange={(e) => setPasswordLogin(e.target.value)}
             />
+
+            {displayErrorMsg &&
+            <ErrorMessage 
+            message="Invalid email or password"
+            />
+            }
 
             <input className='w-full bg-gray-800 text-white shadow-md mt-6 py-1' type="submit" value="Login" />
 

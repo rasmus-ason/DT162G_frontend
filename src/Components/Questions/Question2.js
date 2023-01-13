@@ -2,38 +2,37 @@ import { useState } from 'react'
 
 const Question2 = ({Q2filter}) => { 
 
-    const [summer, setSummer ] = useState(false);
-    const [fall, setFall ] = useState(false);
-    const [winter, setWinter ] = useState(false);
-    const [spring, setSpring ] = useState(false);
+    // const [summer, setSummer ] = useState(false);
+    // const [fall, setFall ] = useState(false);
+    // const [winter, setWinter ] = useState(false);
+    // const [spring, setSpring ] = useState(false);
 
+    let season;
 
-    
-    
     //Set value to variable
     const summerCheckbox = async () => {  
-        setSummer(!summer)
-        Q2filter({"summer": true}) }
+        season = "summer";
+        Q2filter(season) }
 
     const fallCheckbox = async () => {  
-        setFall(!fall)
-        Q2filter({"fall": true}) }
+        season = "fall";
+        Q2filter(season) }
 
     const winterCheckbox = async () => {  
-        setWinter(!winter)
-        Q2filter({"winter": true}) }
+        season = "winter";
+        Q2filter(season) }
 
     const springCheckbox = async () => {  
-        setSpring(!spring)
-        Q2filter({"spring": true}) }
+        season = "spring";
+        Q2filter(season) }
 
     return (
         
             <div>
-                <h2 className="text-center text-3xl mb-6">When would you like to go?</h2>
+                <h2 className="text-center text-xl md:text-2xl mb-6">When would you like to go?</h2>
                 
                 <div 
-                className="categoryBtns grid grid-rows-2 grid-flow-col gap-4"
+                className="categoryBtns flex flex-col sm:grid sm:grid-cols-2 gap-4"
                 >
           
                 <button onClick={() => summerCheckbox()} >Summer</button>

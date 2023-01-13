@@ -1,5 +1,4 @@
 import React from 'react'
-import PopupEdit from '../Components/Popup/PopupEdit'
 import { useState } from 'react'
 import { BiTrash } from 'react-icons/bi';
 import { BiHighlight } from 'react-icons/bi';
@@ -9,61 +8,18 @@ import { BiHighlight } from 'react-icons/bi';
 
 
 
-const SingleDestinationCard = ({destination}) => {
+const SingleDestinationCard = ({destination, deleteDestination, openEditDestination}) => {
 
 
     const [displayEditForm, setDisplayEditForm] = useState(false)
     const [displayDestinationList, setDisplayDestinationList] = useState(true)
-    
-    const [foodrating, setFoodRating] = useState('')
-    const [hideRatingBox, sethideRatingBox] = useState(false)
+   
 
     const [buttonPopupEdit, setbuttonPopupEdit] = useState(false)
-    const [sendId, setSendId] = useState('')
 
-    
-     const deleteDestination = async (id) => {
 
-      fetch('http://localhost:4000/api/destinations/' + destination._id, {
-        method: 'DELETE'
-        })
-        .then(response => response.json())
-        .then(data => console.log(data));
-  
-      }
 
-      const editFormClicked = () => {
 
-        setDisplayEditForm(!displayEditForm)
-        setDisplayDestinationList(!displayDestinationList)
-
-      }
-
-      const displayRatings = () => {
-
-        
-        setFoodRating(destination.ratings[0].food)
-
-        sethideRatingBox(!hideRatingBox)
-      }
-
-      const hideRatings = () => {
-
-        sethideRatingBox(!hideRatingBox)
-      }
-
-      const editFunction = (id) => {
-
-      
-
-        setSendId(id)
-
-        
-        
-        setbuttonPopupEdit(true)
-
-        
-      }
 
      
 
@@ -73,12 +29,12 @@ const SingleDestinationCard = ({destination}) => {
     <div className="">
 
                     
-            <PopupEdit 
+            {/* <PopupEdit 
             triggerEdit={buttonPopupEdit} 
             setTriggerEdit={setbuttonPopupEdit}
             destinationID={sendId}
             >
-            </PopupEdit>
+            </PopupEdit> */}
              
 
             { displayDestinationList && 
@@ -105,14 +61,14 @@ const SingleDestinationCard = ({destination}) => {
                   <button 
                     className="mr-3" 
                     title="Edit destination"
-                    onClick={() => {editFunction(destination._id)}} > 
+                    onClick={() => {openEditDestination(destination._id)}} > 
                     <BiHighlight />
                   </button> 
 
                   <button 
                     className="ml-3" 
                     title="Delete destination"
-                    onClick={() => {deleteDestination()}} >
+                    onClick={() => {deleteDestination(destination._id, destination.destinationName)}} >
                     <BiTrash /> 
                   </button>
                 </div>

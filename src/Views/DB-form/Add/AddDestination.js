@@ -1,10 +1,14 @@
-import { useState} from 'react'
+import React from 'react'
+import ErrorMessage from '../../../Components/Messages/ErrorMessage'
+import { useState } from 'react'
+import { IoClose } from 'react-icons/io5';
 
 
+const AddDestination = ({newDestinationAdded, closeAddForm}) => {
 
-const AddDestination =  ({postSuccessCloseBox}) => {
+    const [newDestination, setNewDestination] = useState(''); 
 
-    const [destinationName, setDestinationName] = useState('');
+    const [destinationName, setDestinationName] = useState(''); 
     const [country, setCountry] = useState('');
     const [category, setCategory] = useState('Big City');
 
@@ -22,85 +26,119 @@ const AddDestination =  ({postSuccessCloseBox}) => {
     const [fall, setFall] = useState(false);
     const [winter, setWinter] = useState(false);
 
+    const [errorMessageReq, setErrorMessageReq] = useState(false)
+    const [errorCheckboxes, setErrorCheckboxes] = useState(false)
+
 
 
     
     const onFormSubmit = async (e) => {
 
+        //Set default values of error messages
+        setErrorCheckboxes(false)
+        setErrorMessageReq(false)
+
         e.preventDefault();
 
-        const ratingsArray =  [
-            {"food" : food}, 
-            {"nightlife" : nightlife},
-            {"LGBTQ" : LGBTQ},
-            {"culture" : culture},
-            {"daytrips" : daytrips},
-            {"budgetFriendly" : budget},
-            {"spaLuxury" : spa},
-            {"adventureOutdoor" : adventureActivities}
-        ]
+        if((destinationName  == "") && (country == "")){
+          setErrorMessageReq(true)
+          return
+        }
+        
+        if((summer) || (fall) || (winter) || (spring)){
+            const ratingsArray =  [
+                {"food" : food}, 
+                {"nightlife" : nightlife},
+                {"LGBTQ" : LGBTQ},
+                {"culture" : culture},
+                {"daytrips" : daytrips},
+                {"budgetFriendly" : budget},
+                {"spaLuxury" : spa},
+                {"adventureOutdoor" : adventureActivities}
+            ]
 
-        const monthsArray = [
-            {"summer" : summer},
-            {"fall" : fall},
-            {"winter" : winter},
-            {"spring" : spring},
-        ]
+            const monthsArray = [
+                {"summer" : summer},
+                {"fall" : fall},
+                {"winter" : winter},
+                {"spring" : spring},
+            ]
 
-        const body = {
-            destinationName : destinationName,
-            country : country,
-            category : category,
-            ratings : ratingsArray,
-            best_months : monthsArray
             
+
+              const body = {
+              destinationName : destinationName,
+              country : country,
+              category : category,
+              ratings : ratingsArray,
+              best_months : monthsArray 
+              }
+              
+              //Post destination
+              const requestOptions = {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(body)
+              };
+
+              fetch('http://localhost:4000/api/destinations', requestOptions)
+              .then((response) => {
+                  if(!response.ok) {
+                    setErrorMessageReq(true)
+                    throw new Error(response.status);
+                  } 
+                  if(response.ok) {
+                    alert("Destination Added Successfully!")
+                  }
+                  return response.json();
+                })
+                .then(data => {
+                  //Send data to parent
+                  newDestinationAdded(data)
+
+                })
+            }else {
+            setErrorCheckboxes(true)
+            
+            return
+          }
         }
+            
+          
 
         
 
         
-       // Simple POST request with a JSON body using fetch
-         const requestOptions = {
-         method: 'POST',
-         headers: { 'Content-Type': 'application/json' },
-         body: JSON.stringify(body)
-         };
 
-        fetch('http://localhost:4000/api/destinations', requestOptions)
-        .then((response) => {
-            if(!response.ok) throw new Error(response.status);
-            if(response.ok) {
-              alert("Destination Added Successfully!")
-              postSuccessCloseBox()
-            }
-            else return response.json();
-          })
-          .then((data) => {
-            console.log("DATA STORED");
-          })
-          .catch((error) => {
-            console.log('error: ' + error);
-          });
+  
 
-        }
-
-        
-        
-    
-
+ 
 
   return (
-    <div>
+    <div className="popup">
+        <div className="popup-inner bg-gray-800">
+            <button 
+            className="absolute right-6 top-6" 
+            onClick={() => closeAddForm()}
+            >
+            <IoClose size={24}/>
+            </button>
 
-    <h3 className="text-3xl text-white my-2 text-center uppercase">Add destination</h3>
+            <h3 className="text-3xl text-white my-2 text-center uppercase">Add destination</h3>
+
+            
 
         <form className="flex flex-col" onSubmit={onFormSubmit}>
 
             
-        <div className="flex flex-row w-full">
-            <div className="flex flex-col w-1/2">
+        <div className="flex flex-col md:flex-row w-full">
+            <div className="flex flex-col md:w-1/2">
             <h3 className="text-2xl text-white my-2 text-left">Add destination info</h3>
-                <label>Add destination name</label>
+
+                {errorMessageReq && <ErrorMessage message={"Enter name and country of destination"}/>}
+                
+
+                <label>Destination name</label>
                 <input 
                 type="text" 
                 id="destination" 
@@ -129,8 +167,9 @@ const AddDestination =  ({postSuccessCloseBox}) => {
                     <option value="culture"> Culture </option>
                 </select>
 
-                <div className="flex flex-col text-left mt-4 ">
-                <h3 className="text-2xl text-white my-2 text-left">When can you go?</h3>
+                <h3 className="text-2xl text-white my-2 text-center md:text-left mt-4 ">Best time to visit?</h3>
+                {errorCheckboxes && <ErrorMessage message={"One of the seasons must be filled in"}/>}
+                <div className="flex flex-row gap-4 mx-auto md:ml-0">
                     <label>
                     <input
                     type="checkbox"
@@ -158,7 +197,7 @@ const AddDestination =  ({postSuccessCloseBox}) => {
                 </div>
             </div>
 
-            <div className="flex flex-col text-center mb-4 w-1/2">
+            <div className="flex flex-col text-center mb-4 md:w-1/2">
             <h3 className="text-2xl text-white my-2 text-center">Rate destination</h3>
 
                     <label>Food</label>
@@ -234,10 +273,16 @@ const AddDestination =  ({postSuccessCloseBox}) => {
             
 
         </form>
+            
+        </div>
+
+        </div>
       
-    </div>
-  )
+  
+   
+  ) 
+
 }
 
-export default AddDestination
 
+export default AddDestination

@@ -34,15 +34,15 @@ const Question1 = ({Q1filter}) => {
             <h2 className="text-center text-3xl">Select type of trip!</h2><br></br>
         
             <div 
-            className="categoryBtns grid grid-rows-2 grid-flow-col gap-4"
+            className="categoryBtns flex flex-col sm:grid sm:grid-cols-2 md:grid-cols-3"
             >
           
-                <button onClick={() => beachchill()} id="c1" className="beachchill" >Beach & Chill</button>
-                <button onClick={() => sunnycities()} id="c2" className="sunnycities" >Sunny Cities</button>
-                <button onClick={() => capitals()} id="c2" className="capitals">Big Cities & Capitals</button>
-                <button onClick={() => smallercities()} id="c2" className="smallercities">Smaller Cities</button>
-                <button onClick={() => natureadventure()} id="c2" className="natureadventure">Nature & Adventure</button>
-                <button onClick={() => culture()} id="c2" className="culture">Culture</button>
+                <button onClick={() => beachchill()} className="m-2" >Beach & Chill</button>
+                <button onClick={() => sunnycities()} className="m-2" >Sunny Cities</button>
+                <button onClick={() => capitals()} className="m-2">Big Cities & Capitals</button>
+                <button onClick={() => smallercities()} className="m-2">Smaller Cities</button>
+                <button onClick={() => natureadventure()} className="m-2">Nature & Adventure</button>
+                <button onClick={() => culture()} className="m-2">Culture</button>
              
             </div>    
 

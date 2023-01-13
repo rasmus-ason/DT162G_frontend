@@ -1,7 +1,9 @@
-import TravelResultPage from "./TravelResultPage"
-import NoDestinationsPage from './NoDestinationsPage'
+import TravelResultPage from "../UserForm/FormResult/TravelResultPage"
+import NoDestinationsPage from '../UserForm/FormResult/NoDestinationsPage'
+import { AiFillCloseCircle } from 'react-icons/ai'
 
-const TravelResultPageContainer = ({ destinations }) => {
+
+const TravelResultPageContainer = ({ destinations, restartForm }) => {
 
     let resultsToDisplay = true;
 
@@ -9,31 +11,45 @@ const TravelResultPageContainer = ({ destinations }) => {
         resultsToDisplay = false
     }
 
+    const backtoForm = () => {
+        restartForm()
+    }
+
     return (
 
-        <div>
-            <h2>Resultat</h2>
+    <div className="relative w-5/6 md:w-2/3 mx-auto bg-gray-200 py-10 px-1 rounded-xl opacity-95">
 
-       
+        <div className="h-96 overflow-y-scroll">
+            <span
+            onClick={() => backtoForm()}
+            className="hover:cursor-pointer absolute top-8 right-8"
+            >
+            < AiFillCloseCircle size={24}/>
+            </span>
+
+            {resultsToDisplay && 
+            <h2 className="text-center text-pink-700 text-3xl">Recomondations for you!</h2>
+            }
+
+            <div className=""> 
             {resultsToDisplay && 
             destinations.map((destination) => (
-
-                <TravelResultPage 
-                key={destination._id}
-                destination={destination} />
-
-            )) }
-
-            {
-            resultsToDisplay === false && 
-            <NoDestinationsPage />
+            < TravelResultPage 
+            key={destination._id}
+            destination={destination} />
+            )) 
             }
+            </div>
             
-            
-                 
-          
-
+            {
+            !resultsToDisplay && 
+            < NoDestinationsPage
+            backtoForm={backtoForm}
+            />
+            }
         </div>
+     
+    </div>
 
    
                 
