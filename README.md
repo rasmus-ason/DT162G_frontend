@@ -12,3 +12,5 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
 ### Clone repo
 [ https://github.com/rasmus-ason/DT162G_frontend.git ]
+
+Run 'npm init' followed by 'npm install' to install all NPM-packages.
