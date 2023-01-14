@@ -32,34 +32,17 @@ const Question1 = ({Q1filter}) => {
     return (
         <div>
             <h2 className="text-center text-3xl">Select type of trip!</h2><br></br>
-        
             <div 
-            className="categoryBtns flex flex-col sm:grid sm:grid-cols-2 md:grid-cols-3"
-            >
-          
+            className="categoryBtns flex flex-col sm:grid sm:grid-cols-2 md:grid-cols-3">
                 <button onClick={() => beachchill()} className="m-2" >Beach & Chill</button>
                 <button onClick={() => sunnycities()} className="m-2" >Sunny Cities</button>
                 <button onClick={() => capitals()} className="m-2">Big Cities & Capitals</button>
                 <button onClick={() => smallercities()} className="m-2">Smaller Cities</button>
                 <button onClick={() => natureadventure()} className="m-2">Nature & Adventure</button>
-                <button onClick={() => culture()} className="m-2">Culture</button>
-             
+                <button onClick={() => culture()} className="m-2">Culture</button>  
             </div>    
-
-           
-
-           
-                  
-                
-
-            
-
-            </div>
-
-    )
-    
-    
-    }
-    
-    export default Question1
+        </div>
+    ) 
+}
+export default Question1
   

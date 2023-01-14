@@ -1,5 +1,4 @@
 import React from 'react'
-import {useState} from 'react'
 
 const TravelResultPage = ({destination}) => {
 
@@ -9,6 +8,7 @@ const TravelResultPage = ({destination}) => {
       <h3 className='font-bold text-pink-700 text-3xl'>{destination.destinationName}</h3>
       <h4 className='font-bold'>In {destination.country}</h4>
 
+      {/* Display message when rating is 5 */}
       <div className='resultpageRatingBoxes text-white '>
       {destination.ratings[0].food === 5 &&
       <p className='bg-yellow-500  my-2 rounded-lg w-2/3 mx-auto py-1 px-3 shadow-xl'>Big variety of restaurants</p>
